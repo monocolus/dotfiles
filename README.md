@@ -14,6 +14,8 @@
 * feh - wallpapers
 * compton - compositor
 
+## i use void btw
+
 ![screenshot](https://github.com/monocolus/dotfiles/blob/main/screen.png?raw=true)
 Terminals
 
