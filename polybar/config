@@ -1,0 +1,367 @@
+[colors]
+background = #282828
+foreground = #ebdbb2
+red        = #fb4934
+green      = #b8bb26
+yellow     = #fabd2f
+blue       = #83a598
+purple     = #d3869b
+teal       = #8ec07c
+orange     = #ce945a
+gray       = #a89984
+g1="#495A27"	
+g2="#53672D"	
+g3="#5E7432"	
+g4="#688038"
+g5="#738D3D"	
+g6="#7D9A43"	
+g7="#84AF2E"	
+g8="#87B825"
+
+
+[bar/top]
+; Size
+width  = 100%
+height = 30
+
+; Offset
+;offset-x = 50%
+;offset-y = 50%
+
+; Position
+bottom = false
+
+; Radius
+radius = 0
+
+; Align modules fixed to middle
+fixed-center = true
+
+; Colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; Underline
+line-size  = 0
+line-color = ${colors.foreground}
+
+; Border
+border-size  = 0
+border-color = ${colors.background}
+
+; Padding
+padding-left  = 0
+padding-right = 0
+
+; Margin of modules
+module-margin-left  = 0
+module-margin-right = 0
+
+; Font
+font-0 = Iosevka:size=9;2
+font-1 = Font Awesome 5 Free Solid:size=10;1
+font-2 = Font Awesome 5 Free Regular:size=10;1
+font-3 = Font Awesome 5 Brands Regular:size=10;1
+
+; Modlues
+modules-left   = time date weather cpu keyboard memory
+modules-center = i3 
+modules-right  = rel settings firefox logout poweroff
+
+; Cursor actions
+cursor-click  = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+type = internal/i3
+
+; Mouse click
+enable-click = true
+
+; Mouse scroll
+enable-scroll = false
+
+; Sort
+index-sort = true
+
+; Display icons
+fuzzy-match = true
+
+; Icons
+ws-icon-1       = 1
+ws-icon-2       = 2 
+ws-icon-3       = 3
+ws-icon-4       = 4
+ws-icon-5       = 5
+ws-icon-default =
+
+; Focused label
+label-focused            = %name%
+label-focused-background = ${colors.g7}
+label-focused-foreground = ${colors.foreground}
+label-focused-padding    = 2
+
+; Unfocused labels
+label-unfocused            = %name%
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-padding    = 2
+
+; Visible labels
+label-visible            = %name%
+label-visible-foreground = ${colors.foreground}
+label-visible-padding    = 2
+
+; Urgent labels
+label-urgent            = %name%
+label-urgent-foreground = ${colors.red}
+label-urgent-padding    = 2
+
+[module/weather]
+type = custom/script
+
+; Script
+exec = /home/mncls/.config/polybar/scripts/weather.sh
+
+; Update interval
+interval = 600
+
+; Label
+label            = %output%
+label-foreground = ${colors.background}
+label-background = ${colors.g3}
+label-padding    = 2
+
+[module/time]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+time = %I:%M%P
+
+; Label
+label            =  %time%
+label-foreground = ${colors.foreground}
+label-background = ${colors.g1}
+label-padding    = 2
+
+[module/usdrate]
+format = <label>
+label =  %output% RUB |
+type = custom/script
+exec = "python3 ~/.config/polybar/scripts/polybar-xo-currency.py rub usd"
+interval=600
+label-padding    = 1
+
+[module/btcrate]
+format = <label>
+label =  %output% RUB |
+type = custom/script
+exec = "python3 ~/.config/polybar/scripts/polybar-xo-currency.py usd btc"
+interval=600
+label-padding    = 1
+
+[module/date]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+date = %A, %d %B
+
+; Label
+label            =  %date%
+label-foreground = ${colors.background}
+label-background = ${colors.g2}
+label-padding    = 2
+
+[module/gmail]
+type = custom/script
+exec = ~/.config/polybar/gmail/launch.py --nosound
+tail = true
+click-left = xdg-open https://mail.google.com
+
+; Label
+label            =  %output% 
+label-background = ${colors.g7}
+label-foreground = ${colors.background}
+label-padding    = 2
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+format =   <label>
+label = " %percentage%%"
+format-background = ${colors.g4}
+format-foreground = ${colors.background}
+format-padding    = 2
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Volume label
+label-volume            =  %percentage%%
+label-volume-background = ${colors.g7}
+label-volume-foreground = ${colors.background}
+label-volume-padding    = 2
+
+; Muted label
+label-muted            =  Muted
+label-muted-background = ${colors.red}
+label-muted-foreground = ${colors.background}
+label-muted-padding    = 2
+
+[module/firefox]
+type = custom/text
+
+; Label
+content = 
+content-background = ${colors.g3}
+content-foreground = ${colors.background}
+content-padding    = 2
+
+; Mouse click
+click-left = firefox
+
+[module/settings]
+type = custom/text
+
+; Label
+content = 
+content-background = ${colors.g4}
+content-foreground = ${colors.background}
+content-padding    = 2
+
+; Mouse click
+click-left = xfce4-settings-manager
+
+[module/logout]
+type = custom/text
+
+; Label
+content            = 
+content-background = ${colors.g2}
+content-foreground = ${colors.background}
+content-padding    = 2
+
+; Mouse click
+click-left = alacritty
+
+[module/poweroff]
+type = custom/text
+
+; Label
+content            = 
+content-background = ${colors.g1}
+content-foreground = ${colors.background}
+content-padding    = 2
+
+; Mouse click
+click-left = i3 exit
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+format = <label>
+label =  %gb_used%
+format-background = ${colors.g6}
+format-foreground = ${colors.background}
+format-padding    = 2
+
+[module/keyboard]
+type = internal/xkeyboard
+format =  <label-layout>
+format-foreground = ${colors.background}
+format-background = ${colors.g5}
+format-padding    = 2
+label = layout = %name%
+
+[module/rel]
+type = custom/text
+
+; Label
+content            = 
+content-background = ${colors.g5}
+content-foreground = ${colors.background}
+content-padding    = 2
+
+; Mouse click
+click-left = ~/.config/polybar/launch.sh
+click-right = mousepad /home/mncls/.config/polybar/config
+
+[module/workspaces]
+type = internal/xworkspaces
+
+fuzzy-match = true
+
+pin-workspaces = true
+
+enable-click = true
+
+enable-scroll = true
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+icon-default = 
+
+format = <label-state>
+format-foreground = ${colors.background}
+format-background = ${colors.g5}
+format-padding    = 2
+
+label-monitor = %icon%  %name%
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%   %name%
+label-active = %icon% %name%
+label-active-foreground = ${color.foreground}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = 
+label-occupied-foreground = ${color.foreground}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = 
+label-urgent-foreground = ${color.background}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = 
+
+label-active-padding = 1
+label-urgent-padding = 1
+label-occupied-padding = 1
+label-empty-padding = 1
+
+[settings]
+screenchange-reload     = true
+;compositing-background = xor
+;compositing-foreground = source
+;compositing-border     = over
+;pseudo-transparency    = false
+
+[global/wm]
+margin-top    = 30
+margin-bottom = 15
